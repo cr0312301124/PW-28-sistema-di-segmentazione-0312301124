@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-NUM_CLIENTI = 599 #Numero di clienti da generare
-SEED = 2042 #Casualità
+NUM_CLIENTI = 600 #Numero di clienti da generare
+SEED = 34296 #Casualità
 DATA_DI_RIFERIMENTO = pd.Timestamp("2026-11-16")
 clienti = []
 
@@ -71,8 +71,8 @@ for i in range(NUM_CLIENTI):
         "data_iscrizione": data_iscrizione,
         "zona": zona,
         "servizio_preferito": servizio,
-        "status_generato": stato,
-        "richieste_ultimo_periodo": richieste_ultimi_90_giorni,
+        "profilo simulato": stato,
+        "richieste_ultimi_90_giorno": richieste_ultimi_90_giorni,
         "richieste_totali": richieste_totali,
         "importo_medio_eur": round(spesa_media_per_richiesta, 2),
         "importo_totale_eur": round(spesa_totale, 2),
