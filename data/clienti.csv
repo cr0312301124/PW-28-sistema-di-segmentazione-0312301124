@@ -1,4 +1,4 @@
-id,data_iscrizione,zona,servizio_preferito,profilo simulato,richieste_ultimi_90_giorno,richieste_totali,importo_medio_eur,importo_totale_eur,giorni_ultima_richiesta,giorni_dall_iscrizione
+id,data_iscrizione,zona,servizio_preferito,profilo simulato,richieste_ultimi_90_giorni,richieste_totali,importo_medio_eur,importo_totale_eur,giorni_dall_ultima_richiesta,giorni_dall_iscrizione
 C0001,2026-10-27,Nord-Est,Formazione,Recenti,4,4,40.56,162.26,18,20
 C0002,2026-10-29,Sud,Formazione,Recenti,5,5,24.27,121.36,17,18
 C0003,2025-06-14,Sud,Consegne,Molto attivi,31,70,67.2,4704.25,9,520

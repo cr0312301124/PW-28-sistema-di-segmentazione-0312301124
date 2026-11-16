@@ -72,11 +72,11 @@ for i in range(NUM_CLIENTI):
         "zona": zona,
         "servizio_preferito": servizio,
         "profilo simulato": stato,
-        "richieste_ultimi_90_giorno": richieste_ultimi_90_giorni,
+        "richieste_ultimi_90_giorni": richieste_ultimi_90_giorni,
         "richieste_totali": richieste_totali,
         "importo_medio_eur": round(spesa_media_per_richiesta, 2),
         "importo_totale_eur": round(spesa_totale, 2),
-        "giorni_ultima_richiesta": giorni_dall_ultima_richiesta,
+        "giorni_dall_ultima_richiesta": giorni_dall_ultima_richiesta,
         "giorni_dall_iscrizione": giorni_dall_iscrizione
     }
 
@@ -102,6 +102,6 @@ print("Richieste negative:", (df["richieste_totali"] < 0).sum())
 
 # Ultima richiesta antecedente all'iscrizione
 giorni_iscrizione = (DATA_DI_RIFERIMENTO - df["data_iscrizione"]).dt.days
-date_anomale = df[df["giorni_ultima_richiesta"] > giorni_iscrizione]
+date_anomale = df[df["giorni_dall_ultima_richiesta"] > giorni_iscrizione]
 print("\nUltima richiesta antecedente all'iscrizione:")
 print(date_anomale["id"].tolist() if not date_anomale.empty else "Nessuna anomalia")
