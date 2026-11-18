@@ -1,4 +1,13 @@
 from pathlib import Path
+import pandas as pd
+
+#Variabili
+NUM_CLIENTI = 600
+SEED = 324296 #34296
+RANDOM_STATE = 2004
+DATA_DI_RIFERIMENTO = pd.Timestamp("2026-11-16")
+
+#Percorsi
 
 cartella_progetto = Path(__file__).resolve().parents[1]
 cartella_data = cartella_progetto / "data"
