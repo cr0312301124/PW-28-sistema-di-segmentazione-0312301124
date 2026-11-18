@@ -13,10 +13,12 @@ cartella_progetto = Path(__file__).resolve().parents[1]
 cartella_data = cartella_progetto / "data"
 cartella_pkl = cartella_progetto / "pkl"
 cartella_results = cartella_progetto / "results"
+cartella_logs = cartella_progetto / "logs"
 
 cartella_data.mkdir(exist_ok=True)
 cartella_pkl.mkdir(exist_ok=True)
 cartella_results.mkdir(exist_ok=True)
+cartella_logs.mkdir(exist_ok=True)
 
 clienticsv = cartella_data / "clienti.csv" 
 clienti_normalizzaticsv = cartella_data / "clienti_normalizzati.csv" 

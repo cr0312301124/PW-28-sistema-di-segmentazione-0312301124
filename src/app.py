@@ -3,10 +3,15 @@ import pandas as pd
 import joblib
 import seaborn as sns
 import matplotlib.pyplot as plt
-from config import clusteredcsv,kmeanspkl,scalerpkl,gomitopng
+import sys
+from contextlib import redirect_stdout
+from datetime import datetime
+from config import clusteredcsv,kmeanspkl,scalerpkl,gomitopng,cartella_logs
 from generatore_dati import generatore
 from preelaborazione import prelab
 from raggruppamento import gomito,silhouette,elab_finale
+
+nome_file = cartella_logs / f"report_esecuzione_{datetime.now():%Y%m%d_%H%M%S}.txt"
 
 
 st.set_page_config(
@@ -27,15 +32,8 @@ def a():
         "giorni_dall_iscrizione"
     ]
 
-    tipologia_cliente = {
-        0: "Recenti",
-        1: "Molto attivi",
-        2: "occasionali/inattivi"
-    }
-
     numero_clienti = df.groupby("cluster")["id"].nunique()
     profili = df.groupby("cluster")[colonne].mean()
-    profili.insert(0,"tipologia",tipologia_cliente)
     profili.insert(0,"numero_clienti", numero_clienti)
     st.dataframe(profili.round(2), use_container_width=True)
 
@@ -101,20 +99,22 @@ def a():
 st.header("Genera")
 Seed = st.number_input("seed", value=34296)
 Random_state = st.number_input("random_state", value=2004)
-Clienti = st.number_input("clienti", value=600)
-if st.button("debug mode"):
-    if st.button("test"):
-        generatore(Seed,Clienti)
-        print("generazione completata")
-        prelab()
-        print("prelaborazione eseguita")
-        x = gomito(Random_state)
-        print("gomito generato")
-        y, num_cluster = silhouette(Random_state, x)
-        print("silhouette completata")
-        elab_finale(Random_state, y, num_cluster)
-        print("elaborato finale")
-        st.image(gomitopng)
-        a()
+Clienti = st.number_input("clienti", value=600, min_value=300, max_value=600)
+
+if st.button("test"):
+    with open(nome_file, "w", encoding="utf-8") as file:
+        with redirect_stdout(file):
+            generatore(Seed,Clienti)
+            print("generazione completata")
+            prelab()
+            print("prelaborazione eseguita")
+            x = gomito(Random_state)
+            print("gomito generato")
+            y, num_cluster = silhouette(Random_state, x)
+            print("silhouette completata")
+            elab_finale(Random_state, y, num_cluster)
+            print("elaborato finale")
+            st.image(gomitopng)
+            a()
 else:
     a()
