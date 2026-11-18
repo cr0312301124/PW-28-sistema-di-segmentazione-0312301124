@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import joblib
 
 from pathlib import Path
 from sklearn.cluster import KMeans
@@ -10,6 +11,7 @@ from sklearn.metrics import silhouette_score
 cartella_progetto = Path(__file__).resolve().parents[1]
 percorso_csv_nominale = cartella_progetto / "data" / "clienti_normalizzati.csv"
 percorso_csv_originale = cartella_progetto / "data" / "clienti.csv"
+percorso_kmeans = cartella_progetto / "pkl" / "kmeans.pkl"
 cartella_risultati = cartella_progetto / "results"
 cartella_risultati.mkdir(exist_ok=True)
 percorso_grafico = cartella_risultati / "gomito.png"
@@ -69,3 +71,23 @@ df_originale.to_csv(percorso_cluster, index=False)
 print(df_originale["cluster"].value_counts().sort_index())
 print(df_originale.groupby("cluster").mean(numeric_only=True).round(2))
 print(df_originale.groupby("cluster").mean(numeric_only=True).round(2).T)
+
+#analisi servizi e zone
+
+servizi_cluster = pd.crosstab(
+    df_originale["cluster"],
+    df_originale["servizio_preferito"],
+    normalize="index"
+) * 100
+
+zone_cluster = pd.crosstab(
+    df_originale["cluster"],
+    df_originale["zona"],
+    normalize="index"
+) * 100
+
+print("servizi:\n", servizi_cluster.round(2) )
+print("zone:\n", zone_cluster.round(2) )
+
+#joblib
+joblib.dump(cluster_c, percorso_kmeans)

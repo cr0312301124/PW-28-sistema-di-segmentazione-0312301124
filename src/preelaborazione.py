@@ -1,4 +1,5 @@
 import pandas as pd
+import joblib
 from pathlib import Path
 from sklearn.preprocessing import StandardScaler
 
@@ -6,7 +7,10 @@ scaler = StandardScaler()
 
 cartella_progetto = Path(__file__).resolve().parents[1]
 percorso_csv = cartella_progetto / "data" / "clienti.csv"
+percorso_scaler = cartella_progetto / "pkl" / "scaler.pkl"
+
 df = pd.read_csv(percorso_csv)
+
 
 #Analisi del CSV generato da "generatore_dati.py"
 print("numero righe e colonne", df.shape) #dimensioni del csv
@@ -49,3 +53,6 @@ print(x_normalizzato.describe())
 percorso_output = cartella_progetto / "data" / "clienti_normalizzati.csv"
 x_normalizzato.to_csv(percorso_output, index=False)
 print("dati normalizzati salvati in data")
+
+#joblib
+joblib.dump(scaler, percorso_scaler)
