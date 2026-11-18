@@ -69,6 +69,15 @@ def elab_finale(RANDOM_STATE=2004,df=pd.read_csv(clienti_normalizzaticsv),nclust
 
     etichette_finali = cluster_c.fit_predict(df)
     df_originale["cluster"] = etichette_finali
+
+#    confronto = pd.crosstab(
+#        df_originale["profilo simulato"],
+#        df_originale["cluster"],
+#        normalize="index"
+#    ) * 100
+#
+#    print(confronto.round(2))
+
     df_originale.to_csv(clusteredcsv, index=False)
     print(df_originale["cluster"].value_counts().sort_index())
     print(df_originale.groupby("cluster").mean(numeric_only=True).round(2))
