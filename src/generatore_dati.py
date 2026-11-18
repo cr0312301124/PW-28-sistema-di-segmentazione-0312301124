@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-from pathlib import Path
+from config import clienticsv
+
 
 NUM_CLIENTI = 600 #Numero di clienti da generare
 SEED = 34296 #Casualità
@@ -85,15 +86,11 @@ for i in range(NUM_CLIENTI):
 #dataframe
 df = pd.DataFrame(clienti)
 
-cartella_progetto = Path(__file__).resolve().parents[1]
-cartella_data = cartella_progetto / "data"
-cartella_data.mkdir(parents=True, exist_ok=True)
-percorso_csv = cartella_data / "clienti.csv"
-df.to_csv(percorso_csv, index=False)
+df.to_csv(clienticsv, index=False)
 
 print("Generazione Completata")
 print(f"Clienti Generati: {len(df)}")
-print(f"File salvato in: {percorso_csv}")
+print(f"File salvato in: {clienticsv}")
 
 print("\nControllo anomalie:")
 print("ID duplicati:", df["id"].duplicated().sum())

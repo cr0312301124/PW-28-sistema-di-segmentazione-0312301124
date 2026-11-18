@@ -1,23 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
-
-from pathlib import Path
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
+from config import clienticsv,clienti_normalizzaticsv,clusteredcsv,kmeanspkl,gomitopng
 
-
-#percorsi
-cartella_progetto = Path(__file__).resolve().parents[1]
-percorso_csv_nominale = cartella_progetto / "data" / "clienti_normalizzati.csv"
-percorso_csv_originale = cartella_progetto / "data" / "clienti.csv"
-percorso_kmeans = cartella_progetto / "pkl" / "kmeans.pkl"
-cartella_risultati = cartella_progetto / "results"
-cartella_risultati.mkdir(exist_ok=True)
-percorso_grafico = cartella_risultati / "gomito.png"
-percorso_cluster = cartella_risultati / "cluster3.csv"
-df = pd.read_csv(percorso_csv_nominale)
-df_originale = pd.read_csv(percorso_csv_originale)
+df = pd.read_csv(clienti_normalizzaticsv)
+df_originale = pd.read_csv(clienticsv)
 
 #gomito
 valori_g = range(2,9)
@@ -42,7 +31,7 @@ plt.ylabel("Inerzia")
 plt.xticks(list(valori_g))
 plt.grid(True)
 
-plt.savefig(percorso_grafico, dpi=300, bbox_inches="tight")
+plt.savefig(gomitopng, dpi=300, bbox_inches="tight")
 plt.show
 
 #silhoouette
@@ -67,7 +56,7 @@ cluster_c = KMeans(
 
 etichette_finali = cluster_c.fit_predict(df)
 df_originale["cluster"] = etichette_finali
-df_originale.to_csv(percorso_cluster, index=False)
+df_originale.to_csv(clusteredcsv, index=False)
 print(df_originale["cluster"].value_counts().sort_index())
 print(df_originale.groupby("cluster").mean(numeric_only=True).round(2))
 print(df_originale.groupby("cluster").mean(numeric_only=True).round(2).T)
@@ -90,4 +79,4 @@ print("servizi:\n", servizi_cluster.round(2) )
 print("zone:\n", zone_cluster.round(2) )
 
 #joblib
-joblib.dump(cluster_c, percorso_kmeans)
+joblib.dump(cluster_c, kmeanspkl)
