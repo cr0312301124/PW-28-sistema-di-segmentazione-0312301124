@@ -19,10 +19,36 @@ st.set_page_config(
     layout="wide" 
 )
 
+def nuovo_cliente(scaler, modello):
+
+    with st.form("nuovo_cliente"):
+        richieste = st.number_input("Richieste ultimi 90 giorni", min_value=0)
+        importo = st.number_input("Importo medio in euro", min_value=0.0)
+        ultima = st.number_input("giorni dall'ultima richiesta", min_value=0)
+        iscrizione = st.number_input("giorni dall'iscrizione", min_value=0)
+        invia = st.form_submit_button("Assegna")
+
+    if invia:
+        dati = pd.DataFrame([[richieste, importo, ultima, iscrizione]],
+            columns=[
+            "richieste_ultimi_90_giorni",
+            "importo_medio_eur",
+            "giorni_dall_ultima_richiesta",
+            "giorni_dall_iscrizione"
+            ]
+        )
+
+        cluster = modello.predict(scaler.transform(dati))[0]
+        st.success(f"Cliente appartente al cluster {cluster}")
+
 def a():
     df = pd.read_csv(clusteredcsv)
     scaler = joblib.load(scalerpkl)
     modello = joblib.load(kmeanspkl)
+
+    st.header("Posizione temporanea")
+    nuovo_cliente(scaler, modello)
+
     st.header("Profili dei gruppi individuati")
 
     colonne = [
@@ -36,11 +62,14 @@ def a():
     numero_clienti = df.groupby("cluster")["id"].nunique()
     profili = df.groupby("cluster")[colonne].mean()
     profili.insert(0,"numero_clienti", numero_clienti)
+
     st.dataframe(profili.round(2), use_container_width=True)
 
-    st.header("Grafici a dispersione")
-    tab_interattivo, tab_statico = st.tabs(["statico","interattivo"])    
-#PRIMO GRAFICO
+    st.header("Grafico a dispersione")
+
+    tab_interattivo, tab_statico = st.tabs(["interattivo","statico"]) 
+
+    #GRAFICO INTERATTIVO
     with tab_interattivo:
         grafico = alt.Chart(df).mark_circle(size=70).encode(
             x=alt.X(
@@ -67,6 +96,7 @@ def a():
 
         st.altair_chart(grafico, use_container_width=True)
 
+        #GRAFICO STATICO
         with tab_statico:
                 fig, ax = plt.subplots(figsize=(18,5))
                 sns.scatterplot(
@@ -90,16 +120,19 @@ def a():
 
 #navbar
 col1, col2, col3 = st.columns([3, 2, 1])
+
 with col1:
     st.write("test1")
 with col2:
-        st.write("test2")
+    st.write("test2")
 with col3:
     mostra_editor = st.checkbox("Debug Mode")
 
 if mostra_editor:
     st.header("Debug Mode")
+
     col1, col2, col3 = st.columns([1, 1, 1])
+
     with col1:
         Seed = st.number_input("Seed", value=34296)
     with col2:
@@ -124,6 +157,8 @@ if mostra_editor:
                 elab_finale(Random_state, y, num_cluster)
                 print("elaborato finale")
                 #st.image(gomitopng)
+                st.success("Nuovi dati generati!")
+
                 a()
 else:
      a()
