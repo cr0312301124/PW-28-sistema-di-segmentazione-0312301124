@@ -4,6 +4,7 @@ import joblib
 import seaborn as sns
 import matplotlib.pyplot as plt
 import altair as alt
+import streamlit as st
 from contextlib import redirect_stdout
 from datetime import datetime
 from config import clusteredcsv,kmeanspkl,scalerpkl,gomitopng,cartella_logs
@@ -18,6 +19,7 @@ st.set_page_config(
     page_title="Project Work",
     layout="wide" 
 )
+
 
 def nuovo_cliente(scaler, modello):
 
@@ -41,13 +43,33 @@ def nuovo_cliente(scaler, modello):
         cluster = modello.predict(scaler.transform(dati))[0]
         st.success(f"Cliente appartente al cluster {cluster}")
 
-def a():
-    df = pd.read_csv(clusteredcsv)
-    scaler = joblib.load(scalerpkl)
-    modello = joblib.load(kmeanspkl)
+def filtri_clienti(df):
 
-    st.header("Posizione temporanea")
-    nuovo_cliente(scaler, modello)
+    df["data_iscrizione"] = pd.to_datetime(df["data_iscrizione"])
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        zona = st.selectbox("Zona", ["Tutte"] + sorted(df["zona"].unique()))
+    with col2:
+        servizio = st.selectbox("Servizio preferito", ["Tutti"] + sorted(df["servizio_preferito"].unique()))
+    with col3:
+        periodo = st.date_input("Periodo di iscrizione", (
+            df["data_iscrizione"].min().date(),
+            df["data_iscrizione"].max().date()
+        ))
+
+    if zona != "Tutte":
+        df = df[df["zona"] == zona]
+    if servizio != "Tutti":
+        df = df[df["servizio_preferito"] == servizio]
+    if isinstance(periodo, tuple) and len(periodo) == 2:
+        df = df[df["data_iscrizione"].dt.date.between(*periodo)]
+
+    return df
+
+def a(df):
+
 
     st.header("Profili dei gruppi individuati")
 
@@ -71,6 +93,7 @@ def a():
 
     #GRAFICO INTERATTIVO
     with tab_interattivo:
+        st.write("Mettendo il cursore sopra a un puntino è possibile leggere informazioni aggiuntive a esso")
         grafico = alt.Chart(df).mark_circle(size=70).encode(
             x=alt.X(
                 "giorni_dall_ultima_richiesta:Q",
@@ -86,9 +109,15 @@ def a():
                 legend=alt.Legend(title="Cluster")
             ),
             tooltip=[
-                "cluster",
                 "giorni_dall_ultima_richiesta",
-                "importo_medio_eur"
+                "importo_medio_eur",
+                "id",
+                "cluster",
+                "zona",
+                "servizio_preferito",
+                "richieste_ultimi_90_giorni",
+                "importo_totale_eur",
+                "giorni_dall_iscrizione"
             ]
         ).properties(
             height=400
@@ -119,17 +148,24 @@ def a():
     return
 
 #navbar
-col1, col2, col3 = st.columns([3, 2, 1])
+col1, col2, col3 = st.columns([3, 1, 1])
 
 with col1:
-    st.write("test1")
+    df = pd.read_csv(clusteredcsv)
+    df = filtri_clienti(df)
 with col2:
-    st.write("test2")
+    st.write("")
+    st.write("")
+    with st.popover("Aggiungi cliente"):
+        scaler = joblib.load(scalerpkl)
+        modello = joblib.load(kmeanspkl)
+        nuovo_cliente(scaler, modello)
 with col3:
     mostra_editor = st.checkbox("Debug Mode")
 
 if mostra_editor:
     st.header("Debug Mode")
+    st.write("Questa è una funzionalità extra del progetto, utilizzata per effettuare test e generare nuovi dataset. Non è necessaria per il normale utilizzo della dashboard.")
 
     col1, col2, col3 = st.columns([1, 1, 1])
 
@@ -159,6 +195,6 @@ if mostra_editor:
                 #st.image(gomitopng)
                 st.success("Nuovi dati generati!")
 
-                a()
+                a(df)
 else:
-     a()
+     a(df)
