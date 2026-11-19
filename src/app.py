@@ -148,20 +148,35 @@ def a(df):
     return
 
 #navbar
-col1, col2, col3 = st.columns([3, 1, 1])
+debugmode = False
+if debugmode:
+    col1, col2, col3 = st.columns([3, 1, 1])
 
-with col1:
-    df = pd.read_csv(clusteredcsv)
-    df = filtri_clienti(df)
-with col2:
-    st.write("")
-    st.write("")
-    with st.popover("Aggiungi cliente"):
-        scaler = joblib.load(scalerpkl)
-        modello = joblib.load(kmeanspkl)
-        nuovo_cliente(scaler, modello)
-with col3:
-    mostra_editor = st.checkbox("Debug Mode")
+    with col1:
+        df = pd.read_csv(clusteredcsv)
+        df = filtri_clienti(df)
+    with col2:
+        st.write("")
+        st.write("")
+        with st.popover("Aggiungi cliente"):
+            scaler = joblib.load(scalerpkl)
+            modello = joblib.load(kmeanspkl)
+            nuovo_cliente(scaler, modello)
+    with col3:
+        mostra_editor = st.checkbox("Debug Mode")
+else:
+    col1, col2, = st.columns([3, 1])
+    mostra_editor = False
+    with col1:
+        df = pd.read_csv(clusteredcsv)
+        df = filtri_clienti(df)
+    with col2:
+        st.write("")
+        st.write("")
+        with st.popover("Aggiungi cliente"):
+            scaler = joblib.load(scalerpkl)
+            modello = joblib.load(kmeanspkl)
+            nuovo_cliente(scaler, modello)
 
 if mostra_editor:
     st.header("Debug Mode")
