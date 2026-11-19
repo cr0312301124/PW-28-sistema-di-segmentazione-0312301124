@@ -8,11 +8,6 @@ def generatore(SEED=34296, NUM_CLIENTI=600):
 
     rng = np.random.default_rng(SEED)
 
-    #DEBUG
-    #print("primo numero rng:", rng.random())
-    #print("secondo numero rng:", rng.random())
-
-    #Zone geografiche dei clienti
     zone = ["Nord-Ovest","Nord-Est","Centro","Sud","Isole","Estero"]
 
     #Servizi disponibili
@@ -83,18 +78,17 @@ def generatore(SEED=34296, NUM_CLIENTI=600):
 
     df.to_csv(clienticsv, index=False)
 
-    print("Generazione Completata")
+    print("----------Generazione Completata----------")
     print(f"Clienti Generati: {len(df)}")
     print(f"File salvato in: {clienticsv}")
 
-    print("\nControllo anomalie:")
+    print("\n----------Controllo anomalie----------")
     print("ID duplicati:", df["id"].duplicated().sum())
     print("Importi negativi:", (df["importo_totale_eur"] < 0).sum())
     print("Richieste negative:", (df["richieste_totali"] < 0).sum())
 
-    # Ultima richiesta antecedente all'iscrizione
     giorni_iscrizione = (DATA_DI_RIFERIMENTO - df["data_iscrizione"]).dt.days
     date_anomale = df[df["giorni_dall_ultima_richiesta"] > giorni_iscrizione]
-    print("\nUltima richiesta antecedente all'iscrizione:")
+    print("\n----------Ultima richiesta antecedente all'iscrizione----------")
     print(date_anomale["id"].tolist() if not date_anomale.empty else "Nessuna anomalia")
     return

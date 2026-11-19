@@ -1,5 +1,6 @@
 from pathlib import Path
 import pandas as pd
+from datetime import datetime
 
 #Variabili
 NUM_CLIENTI = 600
@@ -28,4 +29,7 @@ scalerpkl = cartella_pkl / "scaler.pkl"
 kmeanspkl = cartella_pkl / "kmeans.pkl"
 
 gomitopng = cartella_data / "gomito.png"
+
+nome_file = cartella_logs / f"report_esecuzione_{datetime.now():%Y%m%d_%H%M%S}.txt"
+
 
