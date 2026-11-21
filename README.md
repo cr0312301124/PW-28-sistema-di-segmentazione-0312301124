@@ -15,7 +15,7 @@ https://pw-28-sistema-di-segmentazione-0312301124.streamlit.app/
 cd PW-28-sistema-di-segmentazione-0312301124
 
 # Crea ambiente virtuale (non obbligatorio)
-python -m venv venv
+python -m venv .venv
 source venv/bin/activate          # Linux/Mac
 # oppure
 venv\Scripts\activate             # Windows
