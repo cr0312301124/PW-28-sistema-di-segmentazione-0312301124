@@ -1,0 +1,137 @@
+SEED:  34296
+RANDOM_STATE:  2004
+NUM_CLIENTI: 600
+----------Generazione Completata----------
+Clienti Generati: 600
+File salvato in: /home/cristian/Projects/PW-28---sistema-di-segmentazione/data/clienti.csv
+
+----------Controllo anomalie----------
+ID duplicati: 0
+Importi negativi: 0
+Richieste negative: 0
+
+----------Ultima richiesta antecedente all'iscrizione----------
+Nessuna anomalia
+generazione completata
+numero righe e colonne (600, 11)
+<class 'pandas.DataFrame'>
+RangeIndex: 600 entries, 0 to 599
+Data columns (total 11 columns):
+ #   Column                        Non-Null Count  Dtype  
+---  ------                        --------------  -----  
+ 0   id                            600 non-null    str    
+ 1   data_iscrizione               600 non-null    str    
+ 2   zona                          600 non-null    str    
+ 3   servizio_preferito            600 non-null    str    
+ 4   profilo simulato              600 non-null    str    
+ 5   richieste_ultimi_90_giorni    600 non-null    int64  
+ 6   richieste_totali              600 non-null    int64  
+ 7   importo_medio_eur             600 non-null    float64
+ 8   importo_totale_eur            600 non-null    float64
+ 9   giorni_dall_ultima_richiesta  600 non-null    int64  
+ 10  giorni_dall_iscrizione        600 non-null    int64  
+dtypes: float64(2), int64(4), str(5)
+memory usage: 75.7 KB
+ID duplicati: 0
+Righe duplicate: 0
+       richieste_ultimi_90_giorni  richieste_totali  importo_medio_eur  importo_totale_eur  giorni_dall_ultima_richiesta  giorni_dall_iscrizione
+count                  600.000000        600.000000         600.000000          600.000000                    600.000000              600.000000
+mean                    13.310000         31.735000          44.472833         1727.139533                     28.706667              191.793333
+std                     14.889596         27.854525          16.996414         1956.336895                     37.523023               96.375573
+min                      0.000000          1.000000          15.090000           15.740000                      0.000000                1.000000
+25%                      1.000000         11.000000          31.792500          327.580000                      3.000000              145.000000
+50%                      7.000000         22.000000          42.855000          839.650000                     10.000000              214.000000
+75%                     24.250000         56.500000          52.960000         3197.437500                     33.000000              269.250000
+max                     47.000000         99.000000          89.500000         8076.850000                    134.000000              319.000000
+servizio_preferito
+Consulenza     141
+Abbonamenti    117
+Formazione     114
+Consegne       114
+Assistenza     114
+Name: count, dtype: int64
+zona
+Estero        115
+Isole         105
+Nord-Est       99
+Sud            95
+Centro         94
+Nord-Ovest     92
+Name: count, dtype: int64
+datetime64[us]
+   richieste_ultimi_90_giorni  importo_medio_eur  giorni_dall_ultima_richiesta  giorni_dall_iscrizione
+0                           4              41.74                            10                      20
+1                           5              27.49                            10                      18
+2                          44              72.46                             5                     269
+3                          13              37.37                            25                     312
+4                          26              50.43                             0                     178
+(600, 4)
+   richieste_ultimi_90_giorni  importo_medio_eur  giorni_dall_ultima_richiesta  giorni_dall_iscrizione
+0                   -0.625791          -0.160923                     -0.498954               -1.784028
+1                   -0.558573          -1.000035                     -0.498954               -1.804797
+2                    2.062891           1.648025                     -0.632317                0.801770
+3                   -0.020837          -0.418251                     -0.098866                1.248314
+4                    0.852984           0.350788                     -0.765680               -0.143240
+(600, 4)
+       richieste_ultimi_90_giorni  importo_medio_eur  giorni_dall_ultima_richiesta  giorni_dall_iscrizione
+count                6.000000e+02       6.000000e+02                  6.000000e+02            6.000000e+02
+mean                -7.401487e-17      -4.736952e-17                  9.621933e-18            1.065814e-16
+std                  1.000834e+00       1.000834e+00                  1.000834e+00            1.000834e+00
+min                 -8.946586e-01      -1.730209e+00                 -7.656798e-01           -1.981337e+00
+25%                 -8.274416e-01      -7.466818e-01                 -6.856621e-01           -4.859362e-01
+50%                 -4.241394e-01      -9.526617e-02                 -4.989543e-01            2.306103e-01
+75%                  7.353543e-01       4.997671e-01                  1.145141e-01            8.043666e-01
+max                  2.264542e+00       2.651426e+00                  2.808441e+00            1.321007e+00
+dati normalizzati salvati in data
+prelaborazione eseguita
+2004
+(600, 4)
+cluster: 2 - Inerzia: 1415.735712
+cluster: 3 - Inerzia: 840.429521
+cluster: 4 - Inerzia: 549.551243
+cluster: 5 - Inerzia: 460.807502
+cluster: 6 - Inerzia: 403.156771
+cluster: 7 - Inerzia: 362.310551
+cluster: 8 - Inerzia: 331.503144
+gomito generato
+cluster: 3 - Inerzia: 840.429521 - SIlhouette: 0.440068
+cluster migliore: 3
+cluster: 4 - Inerzia: 549.551243 - SIlhouette: 0.446927
+cluster migliore: 4
+cluster: 5 - Inerzia: 460.807502 - SIlhouette: 0.423964
+cluster migliore: 4
+silhouette completata
+cluster
+0    171
+1    131
+2    138
+3    160
+Name: count, dtype: int64
+         richieste_ultimi_90_giorni  richieste_totali  importo_medio_eur  importo_totale_eur  giorni_dall_ultima_richiesta  giorni_dall_iscrizione
+cluster                                                                                                                                           
+0                              9.41             26.15              41.92             1095.67                         18.03                  219.56
+1                              4.10              6.53              31.29              202.26                          7.18                   35.43
+2                              0.45             14.61              37.33              544.32                         92.73                  248.30
+3                             36.11             73.12              64.16             4670.70                          2.52                  241.41
+cluster                             0       1       2        3
+richieste_ultimi_90_giorni       9.41    4.10    0.45    36.11
+richieste_totali                26.15    6.53   14.61    73.12
+importo_medio_eur               41.92   31.29   37.33    64.16
+importo_totale_eur            1095.67  202.26  544.32  4670.70
+giorni_dall_ultima_richiesta    18.03    7.18   92.73     2.52
+giorni_dall_iscrizione         219.56   35.43  248.30   241.41
+servizi:
+ servizio_preferito  Abbonamenti  Assistenza  Consegne  Consulenza  Formazione
+cluster                                                                      
+0                         15.79       25.73     17.54       23.39       17.54
+1                         22.14       12.98     19.85       22.90       22.14
+2                         17.39       21.74     19.57       21.74       19.57
+3                         23.12       14.37     19.38       25.62       17.50
+zone:
+ zona     Centro  Estero  Isole  Nord-Est  Nord-Ovest    Sud
+cluster                                                    
+0         10.53   16.96  16.96     19.88       18.13  17.54
+1         19.08   17.56  19.85     14.50       16.79  12.21
+2         22.46   21.01  15.22     15.94       12.32  13.04
+3         12.50   21.25  18.12     15.00       13.75  19.38
+elaborato finale
