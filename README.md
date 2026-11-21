@@ -11,7 +11,7 @@ Progetto di machine learning per la segmentazione automatica della clientela di 
 
 ```bash
 # Scarica il progetto
-cd PW-28---sistema-di-segmentazione
+cd PW-28-sistema-di-segmentazione-0312301124
 
 # Crea ambiente virtuale (non obbligatorio)
 python -m venv venv
