@@ -9,8 +9,6 @@ with open(nome_file, "w", encoding="utf-8") as file:
         print("SEED: ", SEED)
         print("RANDOM_STATE: ", RANDOM_STATE)
         print("NUM_CLIENTI:", NUM_CLIENTI)
-        input("Premi enter per continuare")
-
         generatore(SEED,NUM_CLIENTI)
         print("generazione completata")
         prelab()

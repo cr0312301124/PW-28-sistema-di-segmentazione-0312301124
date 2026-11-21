@@ -4,7 +4,7 @@ from datetime import datetime
 
 #Variabili
 NUM_CLIENTI = 600
-SEED = 324296 #34296
+SEED = 34296 #34296
 RANDOM_STATE = 2004
 DATA_DI_RIFERIMENTO = pd.Timestamp("2026-11-16")
 
