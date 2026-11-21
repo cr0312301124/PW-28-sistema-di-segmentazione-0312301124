@@ -64,6 +64,7 @@ SEED e RANDOM_STATE permettono di generare all'esecuzione gli stessi dati, se si
 ├── pkl/
 │   ├── scaler.pkl
 │   └── kmeans.pkl
-└── logs/
-    └── report_esecuzione_*.txt
+├── logs/
+│   └── report_esecuzione_*.txt
+└── requirements.txt            # File necessario per la dashboard online
 ```
