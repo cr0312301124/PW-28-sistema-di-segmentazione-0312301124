@@ -4,7 +4,8 @@ Progetto di machine learning per la segmentazione automatica della clientela di 
 
 
 ## Esecuzione Online
-È possibile usufruire di questo link per utilizzare la dashboard online:
+È possibile usufruire di questo link per utilizzare la dashboard online: 
+https://pw-28-sistema-di-segmentazione-0312301124.streamlit.app/
 
 
 ## Esecuzione in locale
